@@ -1,0 +1,14 @@
+bin/
+obj/
+target/
+build/
+.idea/
+.vscode/
+*.iml
+*.jar
+*.zip
+.env
+*.pem
+*.key
+.DS_Store
+Thumbs.db
