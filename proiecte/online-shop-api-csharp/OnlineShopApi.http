@@ -1,0 +1,20 @@
+@baseUrl = http://localhost:5082
+@token = paste-access-token-here
+
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@shop.com",
+  "password": "admin1234"
+}
+
+###
+
+GET {{baseUrl}}/api/products?page=0&size=10
+Authorization: Bearer {{token}}
+
+###
+
+GET {{baseUrl}}/api/customers/me
+Authorization: Bearer {{token}}
