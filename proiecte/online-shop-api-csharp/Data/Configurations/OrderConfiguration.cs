@@ -12,7 +12,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id).HasColumnName("id");
-        builder.Property(x => x.Ammount).HasColumnName("ammount").IsRequired();
+        builder.Property(x => x.Ammount).HasColumnName("ammount").HasPrecision(10, 2).IsRequired();
         builder.Property(x => x.ShippingAdress).HasColumnName("shipping_adress").HasMaxLength(255).IsRequired();
         builder.Property(x => x.OrderAdress).HasColumnName("order_adress").HasMaxLength(255).IsRequired();
         builder.Property(x => x.OrderEmail).HasColumnName("order_email").HasMaxLength(255).IsRequired();

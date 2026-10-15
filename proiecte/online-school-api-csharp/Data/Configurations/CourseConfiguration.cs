@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OnlineSchoolApi.Courses.Models;
-using OnlineSchoolApi.Data.Seed;
+using OnlineSchoolApi.Courses;
 
 namespace OnlineSchoolApi.Data.Configurations;
 
@@ -15,7 +14,5 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
         builder.Property(x => x.Id).HasColumnName("id");
         builder.Property(x => x.CourseName).HasColumnName("course_name").HasMaxLength(255).IsRequired();
         builder.Property(x => x.Department).HasColumnName("department").HasMaxLength(255).IsRequired();
-
-        builder.HasData(InitialData.Courses);
     }
 }

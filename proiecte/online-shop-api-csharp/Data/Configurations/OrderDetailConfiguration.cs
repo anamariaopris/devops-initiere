@@ -12,7 +12,7 @@ public class OrderDetailConfiguration : IEntityTypeConfiguration<OrderDetail>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id).HasColumnName("id");
-        builder.Property(x => x.Price).HasColumnName("price").IsRequired();
+        builder.Property(x => x.Price).HasColumnName("price").HasPrecision(10, 2).IsRequired();
         builder.Property(x => x.Sku).HasColumnName("sku").HasMaxLength(255).IsRequired();
         builder.Property(x => x.Quantity).HasColumnName("quantity").IsRequired();
         builder.Property(x => x.OrderId).HasColumnName("order_id");

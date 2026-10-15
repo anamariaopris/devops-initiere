@@ -24,7 +24,7 @@ namespace OneToManyApi.Data.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("OneToManyApi.Models.Car", b =>
+            modelBuilder.Entity("OneToManyApi.Cars.Car", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,7 +86,7 @@ namespace OneToManyApi.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("OneToManyApi.Models.User", b =>
+            modelBuilder.Entity("OneToManyApi.Users.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,9 +129,9 @@ namespace OneToManyApi.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("OneToManyApi.Models.Car", b =>
+            modelBuilder.Entity("OneToManyApi.Cars.Car", b =>
                 {
-                    b.HasOne("OneToManyApi.Models.User", "User")
+                    b.HasOne("OneToManyApi.Users.User", "User")
                         .WithMany("Cars")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -140,7 +140,7 @@ namespace OneToManyApi.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("OneToManyApi.Models.User", b =>
+            modelBuilder.Entity("OneToManyApi.Users.User", b =>
                 {
                     b.Navigation("Cars");
                 });

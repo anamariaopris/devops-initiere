@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OnlineSchoolApi.Data.Seed;
-using OnlineSchoolApi.Users.Students.Models;
+using OnlineSchoolApi.Users.Students;
 
 namespace OnlineSchoolApi.Data.Configurations;
 
@@ -18,7 +17,5 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
         builder.Property(x => x.GuardianEmail).HasColumnName("guardian_email").HasMaxLength(100);
 
         builder.HasIndex(x => x.StudentCode).IsUnique().HasDatabaseName("uk_student_student_code");
-
-        builder.HasData(InitialData.Students);
     }
 }

@@ -1,6 +1,117 @@
-@OneToManyApi_HostAddress = http://localhost:5075
+@host = http://localhost:5075
 
-GET {{OneToManyApi_HostAddress}}/weatherforecast/
-Accept: application/json
+GET {{host}}/health/live
 
 ###
+
+GET {{host}}/health/ready
+
+###
+
+GET {{host}}/api/users
+
+###
+
+GET {{host}}/api/users/1
+
+###
+
+GET {{host}}/api/users/1/cars
+
+###
+
+GET {{host}}/api/users/by-email/john.doe@example.com
+
+###
+
+GET {{host}}/api/users/search?name=Jane
+
+###
+
+POST {{host}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Ana Pop",
+  "email": "ana.pop@example.com"
+}
+
+###
+
+PUT {{host}}/api/users/1
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com"
+}
+
+###
+
+PATCH {{host}}/api/users/1
+Content-Type: application/json
+
+{
+  "name": "John D."
+}
+
+###
+
+DELETE {{host}}/api/users/2
+
+###
+
+GET {{host}}/api/cars
+
+###
+
+GET {{host}}/api/cars/1
+
+###
+
+GET {{host}}/api/cars/by-brand/Toyota
+
+###
+
+GET {{host}}/api/cars/by-year-range?minYear=2019&maxYear=2021
+
+###
+
+GET {{host}}/api/cars/search?brand=Honda&userId=1&minYear=2018&maxYear=2022
+
+###
+
+POST {{host}}/api/cars
+Content-Type: application/json
+
+{
+  "brand": "Dacia",
+  "model": "Logan",
+  "year": 2021,
+  "userId": 1
+}
+
+###
+
+PUT {{host}}/api/cars/1
+Content-Type: application/json
+
+{
+  "brand": "Toyota",
+  "model": "Corolla",
+  "year": 2022,
+  "userId": 2
+}
+
+###
+
+PATCH {{host}}/api/cars/1
+Content-Type: application/json
+
+{
+  "year": 2023
+}
+
+###
+
+DELETE {{host}}/api/cars/1

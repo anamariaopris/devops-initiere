@@ -6,11 +6,11 @@ public static class SeedCatalog
 
     public record SeedCustomer(string Email, string Password, string FullName, string BillingAddress, string DefaultShippingAddress, string Country, string Phone);
 
-    public record SeedProduct(string Sku, string Name, int Price, int Weight, string Descriptions, string Category, DateTime CreateDate, int Stock);
+    public record SeedProduct(string Sku, string Name, decimal Price, int Weight, string Descriptions, string Category, DateTime CreateDate, int Stock);
 
-    public record SeedOrderLine(string Sku, int Price, int Quantity);
+    public record SeedOrderLine(string Sku, decimal Price, int Quantity);
 
-    public record SeedOrder(string CustomerEmail, int Ammount, string ShippingAdress, string OrderAdress, DateOnly OrderDate, string OrderStatus, SeedOrderLine[] Lines);
+    public record SeedOrder(string CustomerEmail, decimal Ammount, string ShippingAdress, string OrderAdress, DateOnly OrderDate, string OrderStatus, SeedOrderLine[] Lines);
 
     public static readonly SeedAdmin[] Admins =
     [

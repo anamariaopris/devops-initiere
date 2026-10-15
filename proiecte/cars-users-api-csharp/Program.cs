@@ -1,72 +1,63 @@
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
-using OneToManyApi.Mapping;
+using OneToManyApi.Cars;
 using OneToManyApi.Data;
-using OneToManyApi.Data.Extensions;
-using OneToManyApi.Middleware;
-using OneToManyApi.Repositories;
-using OneToManyApi.Services;
+using OneToManyApi.Errors;
+using OneToManyApi.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException("ConnectionStrings:DefaultConnection is missing.");
+}
+
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(
+    connectionString, new MySqlServerVersion(new Version(8, 4, 0)), mySql => mySql.EnableRetryOnFailure(maxRetryCount: 3)));
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<CarService>();
 builder.Services.AddControllers();
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<ApiExceptionHandler>();
+builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors(options =>
+builder.Services.AddHttpLogging(options => options.LoggingFields =
+    HttpLoggingFields.RequestMethod | HttpLoggingFields.RequestPath |
+    HttpLoggingFields.ResponseStatusCode | HttpLoggingFields.Duration);
+if (allowedOrigins.Length > 0)
 {
-    options.AddPolicy("ApiCorsPolicy", policy =>
-    {
-        var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
-
-        if (allowedOrigins.Length == 0)
-        {
-            throw new InvalidOperationException("Cors:AllowedOrigins must define at least one origin.");
-        }
-
-        if (allowedOrigins.Contains("*"))
-        {
-            if (!builder.Environment.IsDevelopment())
-            {
-                throw new InvalidOperationException("Wildcard CORS origin '*' is allowed only in Development.");
-            }
-
-            policy
-                .AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-            return;
-        }
-
-        policy
-            .WithOrigins(allowedOrigins)
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
-
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-                      ?? throw new InvalidOperationException("ConnectionStrings:DefaultConnection is missing.");
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 36))));
-
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ICarRepository, CarRepository>();
-builder.Services.AddScoped<IUserCommandService, UserCommandService>();
-builder.Services.AddScoped<IUserQueryService, UserQueryService>();
-builder.Services.AddScoped<ICarCommandService, CarCommandService>();
-builder.Services.AddScoped<ICarQueryService, CarQueryService>();
+    builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
+        policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod()));
+}
 
 var app = builder.Build();
 
+app.UseExceptionHandler();
+app.UseStatusCodePages();
+app.UseHttpLogging();
 app.UseSwagger();
 app.UseSwaggerUI();
-
-app.UseCors("ApiCorsPolicy");
-app.UseMiddleware<ExceptionHandlingMiddleware>();
-app.UseHttpsRedirection();
+if (allowedOrigins.Length > 0)
+{
+    app.UseCors();
+}
 app.MapControllers();
+app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });
+app.MapHealthChecks("/health/ready");
 
-await app.ApplyDatabaseMigrationsAsync();
+using (var scope = app.Services.CreateScope())
+{
+    var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("StartupMigration");
+    logger.LogInformation("Applying EF Core migrations...");
+    await scope.ServiceProvider.GetRequiredService<AppDbContext>().Database.MigrateAsync();
+    logger.LogInformation("EF Core migrations applied successfully.");
+}
 
 app.Run();
+
+public partial class Program;

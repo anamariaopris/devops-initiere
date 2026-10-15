@@ -1,43 +1,41 @@
 using System.Text;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using OnlineShopApi.Dtos;
 using OnlineShopApi.Models;
 
 namespace OnlineShopApi.Security;
 
-public class JwtService(JwtOptions options)
+public class JwtService(IOptions<JwtOptions> jwtOptions)
 {
-    private const string TypeClaim = "type";
-    private readonly JsonWebTokenHandler _handler = new();
-    private readonly SymmetricSecurityKey _key = CreateSigningKey(options);
-    private readonly TokenValidationParameters _validationParameters = CreateValidationParameters(options);
+    public const string TypeClaim = "type";
+    public const string AccessType = "access";
+    public const string RefreshType = "refresh";
+
+    private readonly JwtOptions options = jwtOptions.Value;
+    private readonly JsonWebTokenHandler handler = new();
 
     public string GenerateAccessToken(User user)
     {
         var claims = new Dictionary<string, object>
         {
-            ["authorities"] = user.Permissions.Select(p => p.Name).Order(StringComparer.Ordinal).ToList(),
-            [TypeClaim] = "access"
+            [Permissions.ClaimType] = user.SortedPermissionNames(),
+            [TypeClaim] = AccessType
         };
         return BuildToken(claims, user.Email, options.AccessTokenExpirationMs);
     }
 
     public string GenerateRefreshToken(User user)
     {
-        var claims = new Dictionary<string, object> { [TypeClaim] = "refresh" };
+        var claims = new Dictionary<string, object> { [TypeClaim] = RefreshType };
         return BuildToken(claims, user.Email, options.RefreshTokenExpirationMs);
     }
 
     public async Task<string?> ValidateRefreshTokenAsync(string token)
     {
-        var result = await _handler.ValidateTokenAsync(token, _validationParameters);
-        if (!result.IsValid)
-        {
-            return null;
-        }
-
-        var isRefresh = result.Claims.TryGetValue(TypeClaim, out var type) && "refresh".Equals(type as string);
-        if (!isRefresh)
+        var result = await handler.ValidateTokenAsync(token, CreateValidationParameters(options));
+        if (!result.IsValid || !result.Claims.TryGetValue(TypeClaim, out var type) || !RefreshType.Equals(type))
         {
             return null;
         }
@@ -52,45 +50,34 @@ public class JwtService(JwtOptions options)
         ValidateLifetime = true,
         RequireExpirationTime = true,
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = CreateSigningKey(options),
+        IssuerSigningKey = new SymmetricSecurityKey(SecretBytes(options.Secret)),
         ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
+        NameClaimType = JwtRegisteredClaimNames.Sub,
         ClockSkew = TimeSpan.Zero
     };
+
+    public static byte[] SecretBytes(string? secret)
+    {
+        if (string.IsNullOrWhiteSpace(secret))
+        {
+            return [];
+        }
+
+        var buffer = new byte[secret.Length];
+        return Convert.TryFromBase64String(secret, buffer, out var written) ? buffer[..written] : Encoding.UTF8.GetBytes(secret);
+    }
 
     private string BuildToken(Dictionary<string, object> claims, string subject, long expirationMs)
     {
         var now = DateTime.UtcNow;
         claims[JwtRegisteredClaimNames.Sub] = subject;
-        var descriptor = new SecurityTokenDescriptor
+        return handler.CreateToken(new SecurityTokenDescriptor
         {
             Claims = claims,
             IssuedAt = now,
             NotBefore = now,
             Expires = now.AddMilliseconds(expirationMs),
-            SigningCredentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256)
-        };
-        return _handler.CreateToken(descriptor);
-    }
-
-    private static SymmetricSecurityKey CreateSigningKey(JwtOptions options)
-    {
-        if (string.IsNullOrWhiteSpace(options.Secret))
-        {
-            throw new InvalidOperationException("Jwt:Secret is missing.");
-        }
-
-        var bytes = TryDecodeBase64(options.Secret) ?? Encoding.UTF8.GetBytes(options.Secret);
-        if (bytes.Length < 32)
-        {
-            throw new InvalidOperationException("Jwt:Secret must be at least 256 bits (32 bytes) for HS256.");
-        }
-
-        return new SymmetricSecurityKey(bytes);
-    }
-
-    private static byte[]? TryDecodeBase64(string value)
-    {
-        var buffer = new byte[value.Length];
-        return Convert.TryFromBase64String(value, buffer, out var written) ? buffer[..written] : null;
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(SecretBytes(options.Secret)), SecurityAlgorithms.HmacSha256)
+        });
     }
 }

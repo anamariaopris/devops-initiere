@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OnlineSchoolApi.Data.Seed;
-using OnlineSchoolApi.Users.Teachers.Models;
+using OnlineSchoolApi.Users.Teachers;
 
 namespace OnlineSchoolApi.Data.Configurations;
 
@@ -17,7 +16,5 @@ public class TeacherConfiguration : IEntityTypeConfiguration<Teacher>
         builder.Property(x => x.Bio).HasColumnName("bio").HasMaxLength(1000);
 
         builder.HasIndex(x => x.EmployeeCode).IsUnique().HasDatabaseName("uk_teacher_employee_code");
-
-        builder.HasData(InitialData.Teachers);
     }
 }

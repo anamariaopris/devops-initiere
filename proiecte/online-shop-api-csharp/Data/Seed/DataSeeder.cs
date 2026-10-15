@@ -9,14 +9,10 @@ public class DataSeeder(AppDbContext dbContext, ILogger<DataSeeder> logger)
 {
     public async Task SeedAsync(CancellationToken cancellationToken = default)
     {
-        await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
-
         await SeedPermissionsAsync(cancellationToken);
         await SeedAdminsAsync(cancellationToken);
         await SeedCustomersAsync(cancellationToken);
         await SeedCatalogAsync(cancellationToken);
-
-        await transaction.CommitAsync(cancellationToken);
     }
 
     private async Task SeedPermissionsAsync(CancellationToken cancellationToken)
@@ -47,7 +43,7 @@ public class DataSeeder(AppDbContext dbContext, ILogger<DataSeeder> logger)
                 Department = seed.Department,
                 Notes = seed.Notes
             });
-            logger.LogInformation("Seeded admin account: {Email} (password: {Password})", seed.Email, seed.Password);
+            logger.LogInformation("Seeded admin account: {Email}", seed.Email);
         }
 
         await dbContext.SaveChangesAsync(cancellationToken);
@@ -71,7 +67,7 @@ public class DataSeeder(AppDbContext dbContext, ILogger<DataSeeder> logger)
                 Country = seed.Country,
                 Phone = seed.Phone
             });
-            logger.LogInformation("Seeded customer: {Email} (password: {Password})", seed.Email, seed.Password);
+            logger.LogInformation("Seeded customer account: {Email}", seed.Email);
         }
 
         await dbContext.SaveChangesAsync(cancellationToken);

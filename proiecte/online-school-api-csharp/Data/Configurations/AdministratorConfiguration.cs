@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OnlineSchoolApi.Data.Seed;
-using OnlineSchoolApi.Users.Administrators.Models;
+using OnlineSchoolApi.Users.Administrators;
 
 namespace OnlineSchoolApi.Data.Configurations;
 
@@ -16,7 +15,5 @@ public class AdministratorConfiguration : IEntityTypeConfiguration<Administrator
         builder.Property(x => x.JobTitle).HasColumnName("job_title").HasMaxLength(100);
 
         builder.HasIndex(x => x.EmployeeCode).IsUnique().HasDatabaseName("uk_administrator_employee_code");
-
-        builder.HasData(InitialData.Administrators);
     }
 }

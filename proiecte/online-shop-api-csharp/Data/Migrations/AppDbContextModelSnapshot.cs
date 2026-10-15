@@ -129,8 +129,9 @@ namespace OnlineShopApi.Data.Migrations
                         .HasColumnType("char(36)")
                         .HasColumnName("id");
 
-                    b.Property<int>("Ammount")
-                        .HasColumnType("int")
+                    b.Property<decimal>("Ammount")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
                         .HasColumnName("ammount");
 
                     b.Property<DateTime>("CreatedAt")
@@ -147,8 +148,7 @@ namespace OnlineShopApi.Data.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("order_adress");
 
-                    b.Property<DateOnly?>("OrderDate")
-                        .IsRequired()
+                    b.Property<DateOnly>("OrderDate")
                         .HasColumnType("date")
                         .HasColumnName("order_date");
 
@@ -196,8 +196,9 @@ namespace OnlineShopApi.Data.Migrations
                         .HasColumnType("char(36)")
                         .HasColumnName("order_id");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int")
+                    b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
                         .HasColumnName("price");
 
                     b.Property<Guid?>("ProductId")
@@ -261,8 +262,7 @@ namespace OnlineShopApi.Data.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("category");
 
-                    b.Property<DateTime?>("CreateDate")
-                        .IsRequired()
+                    b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("create_date");
 
@@ -282,8 +282,9 @@ namespace OnlineShopApi.Data.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("name");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int")
+                    b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
                         .HasColumnName("price");
 
                     b.Property<string>("Sku")

@@ -62,8 +62,9 @@ namespace OneModelApi.Data.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("model");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("double")
+                    b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
                         .HasColumnName("price");
 
                     b.Property<int>("Size")

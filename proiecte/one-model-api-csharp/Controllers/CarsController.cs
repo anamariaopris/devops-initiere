@@ -6,152 +6,59 @@ namespace OneModelApi.Controllers;
 
 [ApiController]
 [Route("api/cars")]
-public class CarsController : ControllerBase
+public class CarsController(CarService service) : ControllerBase
 {
-    private readonly ICarQueryService queryService;
-    private readonly ICarCommandService commandService;
-
-    public CarsController(ICarQueryService queryService, ICarCommandService commandService)
-    {
-        this.queryService = queryService;
-        this.commandService = commandService;
-    }
-
-    [HttpPost]
-    [ProducesResponseType(typeof(CarResponse), StatusCodes.Status201Created)]
-    public async Task<ActionResult<CarResponse>> Create([FromBody] CarCreateRequest request, CancellationToken cancellationToken)
-    {
-        var created = await commandService.CreateAsync(request, cancellationToken);
-        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
-    }
-
     [HttpGet]
-    [ProducesResponseType(typeof(CarListResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult<CarListResponse>> GetAll(CancellationToken cancellationToken)
-    {
-        var cars = await queryService.GetAllAsync(cancellationToken);
-        if (!cars.Cars.Any())
-        {
-            return NoContent();
-        }
-
-        return Ok(cars);
-    }
+    public Task<CarListResponse> GetAll(CancellationToken cancellationToken) =>
+        service.GetAllAsync(cancellationToken);
 
     [HttpGet("{id:long}")]
-    [ProducesResponseType(typeof(CarResponse), StatusCodes.Status200OK)]
-    public async Task<ActionResult<CarResponse>> GetById([FromRoute] long id, CancellationToken cancellationToken)
-    {
-        var car = await queryService.GetByIdAsync(id, cancellationToken);
-        return Ok(car);
-    }
+    public Task<CarResponse> GetById(long id, CancellationToken cancellationToken) =>
+        service.GetByIdAsync(id, cancellationToken);
 
     [HttpGet("brand/{brand}")]
-    [ProducesResponseType(typeof(CarListResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult<CarListResponse>> GetByBrand([FromRoute] string brand, CancellationToken cancellationToken)
-    {
-        var cars = await queryService.GetByBrandAsync(brand, cancellationToken);
-        if (!cars.Cars.Any())
-        {
-            return NoContent();
-        }
-
-        return Ok(cars);
-    }
+    public Task<CarListResponse> GetByBrand(string brand, CancellationToken cancellationToken) =>
+        service.GetByBrandAsync(brand, cancellationToken);
 
     [HttpGet("color/{color}")]
-    [ProducesResponseType(typeof(CarListResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult<CarListResponse>> GetByColor([FromRoute] string color, CancellationToken cancellationToken)
-    {
-        var cars = await queryService.GetByColorAsync(color, cancellationToken);
-        if (!cars.Cars.Any())
-        {
-            return NoContent();
-        }
-
-        return Ok(cars);
-    }
+    public Task<CarListResponse> GetByColor(string color, CancellationToken cancellationToken) =>
+        service.GetByColorAsync(color, cancellationToken);
 
     [HttpGet("fuel/{fuelType}")]
-    [ProducesResponseType(typeof(CarListResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult<CarListResponse>> GetByFuelType([FromRoute] string fuelType, CancellationToken cancellationToken)
-    {
-        var cars = await queryService.GetByFuelTypeAsync(fuelType, cancellationToken);
-        if (!cars.Cars.Any())
-        {
-            return NoContent();
-        }
-
-        return Ok(cars);
-    }
+    public Task<CarListResponse> GetByFuelType(string fuelType, CancellationToken cancellationToken) =>
+        service.GetByFuelTypeAsync(fuelType, cancellationToken);
 
     [HttpGet("transmission/{transmission}")]
-    [ProducesResponseType(typeof(CarListResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult<CarListResponse>> GetByTransmission([FromRoute] string transmission, CancellationToken cancellationToken)
-    {
-        var cars = await queryService.GetByTransmissionAsync(transmission, cancellationToken);
-        if (!cars.Cars.Any())
-        {
-            return NoContent();
-        }
-
-        return Ok(cars);
-    }
+    public Task<CarListResponse> GetByTransmission(string transmission, CancellationToken cancellationToken) =>
+        service.GetByTransmissionAsync(transmission, cancellationToken);
 
     [HttpGet("available/{available:bool}")]
-    [ProducesResponseType(typeof(CarListResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult<CarListResponse>> GetByAvailable([FromRoute] bool available, CancellationToken cancellationToken)
-    {
-        var cars = await queryService.GetByAvailableAsync(available, cancellationToken);
-        if (!cars.Cars.Any())
-        {
-            return NoContent();
-        }
-
-        return Ok(cars);
-    }
+    public Task<CarListResponse> GetByAvailable(bool available, CancellationToken cancellationToken) =>
+        service.GetByAvailableAsync(available, cancellationToken);
 
     [HttpGet("search")]
-    [ProducesResponseType(typeof(CarListResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult<CarListResponse>> Search([FromQuery] CarSearchRequest request, CancellationToken cancellationToken)
-    {
-        var cars = await queryService.SearchAsync(request, cancellationToken);
-        if (!cars.Cars.Any())
-        {
-            return NoContent();
-        }
+    public Task<CarListResponse> Search([FromQuery] CarSearchRequest request, CancellationToken cancellationToken) =>
+        service.SearchAsync(request, cancellationToken);
 
-        return Ok(cars);
+    [HttpPost]
+    public async Task<ActionResult<CarResponse>> Create(CarRequest request, CancellationToken cancellationToken)
+    {
+        var car = await service.CreateAsync(request, cancellationToken);
+        return CreatedAtAction(nameof(GetById), new { id = car.Id }, car);
     }
 
     [HttpPut("{id:long}")]
-    [ProducesResponseType(typeof(CarResponse), StatusCodes.Status200OK)]
-    public async Task<ActionResult<CarResponse>> Update([FromRoute] long id, [FromBody] CarPutRequest request, CancellationToken cancellationToken)
-    {
-        var updated = await commandService.UpdateAsync(id, request, cancellationToken);
-        return Ok(updated);
-    }
+    public Task<CarResponse> Update(long id, CarRequest request, CancellationToken cancellationToken) =>
+        service.UpdateAsync(id, request, cancellationToken);
 
     [HttpPatch("{id:long}")]
-    [ProducesResponseType(typeof(CarResponse), StatusCodes.Status200OK)]
-    public async Task<ActionResult<CarResponse>> Patch([FromRoute] long id, [FromBody] CarPatchRequest request, CancellationToken cancellationToken)
-    {
-        var updated = await commandService.PatchAsync(id, request, cancellationToken);
-        return Ok(updated);
-    }
+    public Task<CarResponse> Patch(long id, CarPatchRequest request, CancellationToken cancellationToken) =>
+        service.PatchAsync(id, request, cancellationToken);
 
     [HttpDelete("{id:long}")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> Delete([FromRoute] long id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken)
     {
-        await commandService.DeleteAsync(id, cancellationToken);
+        await service.DeleteAsync(id, cancellationToken);
         return NoContent();
     }
 }

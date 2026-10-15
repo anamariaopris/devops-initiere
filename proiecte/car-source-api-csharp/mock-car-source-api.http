@@ -1,6 +1,21 @@
-@mock_car_source_api_HostAddress = http://localhost:5174
+@host = http://localhost:5643
 
-GET {{mock_car_source_api_HostAddress}}/weatherforecast/
+GET {{host}}/api/external/cars
 Accept: application/json
 
 ###
+
+GET {{host}}/api/external/cars/{{externalId}}
+Accept: application/json
+
+###
+
+POST {{host}}/api/external/cars/regenerate?count=50
+
+###
+
+GET {{host}}/health/live
+
+###
+
+GET {{host}}/health/ready

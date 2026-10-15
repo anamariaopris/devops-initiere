@@ -1,6 +1,89 @@
-@OneModelApi_HostAddress = http://localhost:5017
+@host = http://localhost:5017
 
-GET {{OneModelApi_HostAddress}}/weatherforecast/
-Accept: application/json
+GET {{host}}/health/live
 
 ###
+
+GET {{host}}/health/ready
+
+###
+
+POST {{host}}/api/cars
+Content-Type: application/json
+
+{
+  "brand": "Dacia",
+  "model": "Logan",
+  "color": "white",
+  "size": 5,
+  "year": 2021,
+  "price": 9500.50,
+  "mileage": 42000,
+  "fuelType": "petrol",
+  "transmission": "manual",
+  "available": true
+}
+
+###
+
+GET {{host}}/api/cars
+
+###
+
+GET {{host}}/api/cars/1
+
+###
+
+GET {{host}}/api/cars/brand/Dacia
+
+###
+
+GET {{host}}/api/cars/color/white
+
+###
+
+GET {{host}}/api/cars/fuel/petrol
+
+###
+
+GET {{host}}/api/cars/transmission/manual
+
+###
+
+GET {{host}}/api/cars/available/true
+
+###
+
+GET {{host}}/api/cars/search?brand=Dacia&minYear=2015&maxYear=2024&maxPrice=10000&maxMileage=100000
+
+###
+
+PUT {{host}}/api/cars/1
+Content-Type: application/json
+
+{
+  "brand": "Dacia",
+  "model": "Logan",
+  "color": "blue",
+  "size": 5,
+  "year": 2022,
+  "price": 10500.00,
+  "mileage": 30000,
+  "fuelType": "petrol",
+  "transmission": "automatic",
+  "available": false
+}
+
+###
+
+PATCH {{host}}/api/cars/1
+Content-Type: application/json
+
+{
+  "price": 8999.99,
+  "available": true
+}
+
+###
+
+DELETE {{host}}/api/cars/1

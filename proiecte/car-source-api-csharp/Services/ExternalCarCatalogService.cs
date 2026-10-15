@@ -1,10 +1,17 @@
 using mock_car_source_api.Models;
 
-namespace mock_car_source_api;
+namespace mock_car_source_api.Services;
 
 public class ExternalCarCatalogService
 {
-    private readonly Random _random = new();
+    private const int DefaultCount = 120;
+
+    private volatile IReadOnlyList<ExternalCarDto> _cars;
+
+    public ExternalCarCatalogService()
+    {
+        _cars = GenerateCars(DefaultCount);
+    }
 
     private static readonly Dictionary<string, string[]> BrandModels = new()
     {
@@ -58,26 +65,17 @@ public class ExternalCarCatalogService
         "Black", "White", "Gray", "Blue", "Red", "Silver", "Green", "Brown"
     ];
 
-    public IReadOnlyList<ExternalCarDto> GetAll()
-    {
-        return GenerateCars(120);
-    }
+    public IReadOnlyList<ExternalCarDto> GetAll() => _cars;
 
-    public ExternalCarDto? GetById(string externalId)
-    {
-        return GenerateCar(externalId);
-    }
+    public ExternalCarDto? GetById(string externalId) => _cars.FirstOrDefault(c => c.ExternalId == externalId);
 
-    public void Regenerate(int count = 120)
-    {
-        GenerateCars(count);
-    }
+    public void Regenerate(int count) => _cars = GenerateCars(count);
 
-    private List<ExternalCarDto> GenerateCars(int count)
+    private static List<ExternalCarDto> GenerateCars(int count)
     {
         var cars = new List<ExternalCarDto>(count);
 
-        for (int i = 0; i < count; i++)
+        for (var i = 0; i < count; i++)
         {
             cars.Add(GenerateCar(Guid.NewGuid().ToString()));
         }
@@ -85,7 +83,7 @@ public class ExternalCarCatalogService
         return cars;
     }
 
-    private ExternalCarDto GenerateCar(string externalId)
+    private static ExternalCarDto GenerateCar(string externalId)
     {
         var brand = PickBrand();
         var model = Pick(BrandModels[brand]);
@@ -95,23 +93,23 @@ public class ExternalCarCatalogService
             ExternalId = externalId,
             Brand = brand,
             Model = model,
-            Year = _random.Next(2012, 2026),
-            PriceEur = _random.Next(6000, 75001),
-            MileageKm = _random.Next(10000, 220001),
+            Year = Random.Shared.Next(2012, 2026),
+            PriceEur = Random.Shared.Next(6000, 75001),
+            MileageKm = Random.Shared.Next(10000, 220001),
             FuelType = Pick(FuelTypes),
             Transmission = Pick(Transmissions),
             Color = Pick(Colors),
-            PublishedAtUtc = DateTime.UtcNow.AddDays(-_random.Next(0, 90))
+            PublishedAtUtc = DateTime.UtcNow.AddDays(-Random.Shared.Next(0, 90))
         };
     }
 
-    private string Pick(string[] values)
+    private static string Pick(string[] values)
     {
-        return values[_random.Next(values.Length)];
+        return values[Random.Shared.Next(values.Length)];
     }
 
-    private string PickBrand()
+    private static string PickBrand()
     {
-        return BrandModels.Keys.ElementAt(_random.Next(BrandModels.Count));
+        return BrandModels.Keys.ElementAt(Random.Shared.Next(BrandModels.Count));
     }
 }

@@ -22,7 +22,7 @@ namespace OnlineSchoolApi.Data.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("OnlineSchoolApi.Books.Models.Book", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Books.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,53 +46,9 @@ namespace OnlineSchoolApi.Data.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("book", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 200,
-                            BookName = "Algebra Practice Workbook",
-                            StudentId = 20
-                        },
-                        new
-                        {
-                            Id = 201,
-                            BookName = "Java for Beginners",
-                            StudentId = 21
-                        },
-                        new
-                        {
-                            Id = 202,
-                            BookName = "Physics Experiments Handbook",
-                            StudentId = 22
-                        },
-                        new
-                        {
-                            Id = 203,
-                            BookName = "Academic English Companion",
-                            StudentId = 23
-                        },
-                        new
-                        {
-                            Id = 204,
-                            BookName = "History Sourcebook",
-                            StudentId = 24
-                        },
-                        new
-                        {
-                            Id = 205,
-                            BookName = "Advanced Data Structures Notes",
-                            StudentId = 21
-                        },
-                        new
-                        {
-                            Id = 206,
-                            BookName = "Problem Solving in Mathematics",
-                            StudentId = 20
-                        });
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Courses.Models.Course", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Courses.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -116,47 +72,9 @@ namespace OnlineSchoolApi.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("course", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 100,
-                            CourseName = "Algebra Fundamentals",
-                            Department = "Mathematics"
-                        },
-                        new
-                        {
-                            Id = 101,
-                            CourseName = "Java Programming Basics",
-                            Department = "Computer Science"
-                        },
-                        new
-                        {
-                            Id = 102,
-                            CourseName = "Physics Lab Essentials",
-                            Department = "Science"
-                        },
-                        new
-                        {
-                            Id = 103,
-                            CourseName = "Academic Writing in English",
-                            Department = "Languages"
-                        },
-                        new
-                        {
-                            Id = 104,
-                            CourseName = "Modern European History",
-                            Department = "Humanities"
-                        },
-                        new
-                        {
-                            Id = 105,
-                            CourseName = "Data Structures",
-                            Department = "Computer Science"
-                        });
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Enrolments.Models.Enrolment", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Enrolments.Enrolment", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -180,59 +98,9 @@ namespace OnlineSchoolApi.Data.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("enrolment", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 300L,
-                            CourseId = 100,
-                            StudentId = 20
-                        },
-                        new
-                        {
-                            Id = 301L,
-                            CourseId = 101,
-                            StudentId = 20
-                        },
-                        new
-                        {
-                            Id = 302L,
-                            CourseId = 101,
-                            StudentId = 21
-                        },
-                        new
-                        {
-                            Id = 303L,
-                            CourseId = 105,
-                            StudentId = 21
-                        },
-                        new
-                        {
-                            Id = 304L,
-                            CourseId = 102,
-                            StudentId = 22
-                        },
-                        new
-                        {
-                            Id = 305L,
-                            CourseId = 103,
-                            StudentId = 23
-                        },
-                        new
-                        {
-                            Id = 306L,
-                            CourseId = 104,
-                            StudentId = 24
-                        },
-                        new
-                        {
-                            Id = 307L,
-                            CourseId = 100,
-                            StudentId = 24
-                        });
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Users.Models.User", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Users.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -296,7 +164,7 @@ namespace OnlineSchoolApi.Data.Migrations
                     b.UseTptMappingStrategy();
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Users.Models.UserPermission", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Users.UserPermission", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int")
@@ -310,878 +178,11 @@ namespace OnlineSchoolApi.Data.Migrations
                     b.HasKey("UserId", "Permission");
 
                     b.ToTable("user_permissions", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 20,
-                            Permission = "STUDENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            Permission = "COURSE_READ"
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            Permission = "BOOK_READ"
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            Permission = "BOOK_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            Permission = "ENROLMENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            Permission = "PROFILE_READ"
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            Permission = "PROFILE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            Permission = "AUTH_READ"
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            Permission = "AUTH_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            Permission = "PASSWORD_READ"
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            Permission = "PASSWORD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 20,
-                            Permission = "DASHBOARD_READ"
-                        },
-                        new
-                        {
-                            UserId = 21,
-                            Permission = "STUDENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 21,
-                            Permission = "COURSE_READ"
-                        },
-                        new
-                        {
-                            UserId = 21,
-                            Permission = "BOOK_READ"
-                        },
-                        new
-                        {
-                            UserId = 21,
-                            Permission = "BOOK_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 21,
-                            Permission = "ENROLMENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 21,
-                            Permission = "PROFILE_READ"
-                        },
-                        new
-                        {
-                            UserId = 21,
-                            Permission = "PROFILE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 21,
-                            Permission = "AUTH_READ"
-                        },
-                        new
-                        {
-                            UserId = 21,
-                            Permission = "AUTH_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 21,
-                            Permission = "PASSWORD_READ"
-                        },
-                        new
-                        {
-                            UserId = 21,
-                            Permission = "PASSWORD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 21,
-                            Permission = "DASHBOARD_READ"
-                        },
-                        new
-                        {
-                            UserId = 22,
-                            Permission = "STUDENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 22,
-                            Permission = "COURSE_READ"
-                        },
-                        new
-                        {
-                            UserId = 22,
-                            Permission = "BOOK_READ"
-                        },
-                        new
-                        {
-                            UserId = 22,
-                            Permission = "BOOK_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 22,
-                            Permission = "ENROLMENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 22,
-                            Permission = "PROFILE_READ"
-                        },
-                        new
-                        {
-                            UserId = 22,
-                            Permission = "PROFILE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 22,
-                            Permission = "AUTH_READ"
-                        },
-                        new
-                        {
-                            UserId = 22,
-                            Permission = "AUTH_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 22,
-                            Permission = "PASSWORD_READ"
-                        },
-                        new
-                        {
-                            UserId = 22,
-                            Permission = "PASSWORD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 22,
-                            Permission = "DASHBOARD_READ"
-                        },
-                        new
-                        {
-                            UserId = 23,
-                            Permission = "STUDENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 23,
-                            Permission = "COURSE_READ"
-                        },
-                        new
-                        {
-                            UserId = 23,
-                            Permission = "BOOK_READ"
-                        },
-                        new
-                        {
-                            UserId = 23,
-                            Permission = "BOOK_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 23,
-                            Permission = "ENROLMENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 23,
-                            Permission = "PROFILE_READ"
-                        },
-                        new
-                        {
-                            UserId = 23,
-                            Permission = "PROFILE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 23,
-                            Permission = "AUTH_READ"
-                        },
-                        new
-                        {
-                            UserId = 23,
-                            Permission = "AUTH_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 23,
-                            Permission = "PASSWORD_READ"
-                        },
-                        new
-                        {
-                            UserId = 23,
-                            Permission = "PASSWORD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 23,
-                            Permission = "DASHBOARD_READ"
-                        },
-                        new
-                        {
-                            UserId = 24,
-                            Permission = "STUDENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 24,
-                            Permission = "COURSE_READ"
-                        },
-                        new
-                        {
-                            UserId = 24,
-                            Permission = "BOOK_READ"
-                        },
-                        new
-                        {
-                            UserId = 24,
-                            Permission = "BOOK_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 24,
-                            Permission = "ENROLMENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 24,
-                            Permission = "PROFILE_READ"
-                        },
-                        new
-                        {
-                            UserId = 24,
-                            Permission = "PROFILE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 24,
-                            Permission = "AUTH_READ"
-                        },
-                        new
-                        {
-                            UserId = 24,
-                            Permission = "AUTH_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 24,
-                            Permission = "PASSWORD_READ"
-                        },
-                        new
-                        {
-                            UserId = 24,
-                            Permission = "PASSWORD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 24,
-                            Permission = "DASHBOARD_READ"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "TEACHER_READ"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "TEACHER_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "STUDENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "COURSE_READ"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "COURSE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "BOOK_READ"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "ENROLMENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "ENROLMENT_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "PROFILE_READ"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "PROFILE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "AUTH_READ"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "AUTH_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "PASSWORD_READ"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "PASSWORD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "DASHBOARD_READ"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "DASHBOARD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            Permission = "REPORT_READ"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "TEACHER_READ"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "TEACHER_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "STUDENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "COURSE_READ"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "COURSE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "BOOK_READ"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "ENROLMENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "ENROLMENT_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "PROFILE_READ"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "PROFILE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "AUTH_READ"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "AUTH_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "PASSWORD_READ"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "PASSWORD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "DASHBOARD_READ"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "DASHBOARD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            Permission = "REPORT_READ"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "TEACHER_READ"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "TEACHER_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "STUDENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "COURSE_READ"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "COURSE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "BOOK_READ"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "ENROLMENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "ENROLMENT_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "PROFILE_READ"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "PROFILE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "AUTH_READ"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "AUTH_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "PASSWORD_READ"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "PASSWORD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "DASHBOARD_READ"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "DASHBOARD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            Permission = "REPORT_READ"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "TEACHER_READ"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "TEACHER_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "STUDENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "COURSE_READ"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "COURSE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "BOOK_READ"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "ENROLMENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "ENROLMENT_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "PROFILE_READ"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "PROFILE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "AUTH_READ"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "AUTH_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "PASSWORD_READ"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "PASSWORD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "DASHBOARD_READ"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "DASHBOARD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            Permission = "REPORT_READ"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "TEACHER_READ"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "TEACHER_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "STUDENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "COURSE_READ"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "COURSE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "BOOK_READ"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "ENROLMENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "ENROLMENT_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "PROFILE_READ"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "PROFILE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "AUTH_READ"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "AUTH_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "PASSWORD_READ"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "PASSWORD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "DASHBOARD_READ"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "DASHBOARD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            Permission = "REPORT_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "STUDENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "STUDENT_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "TEACHER_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "TEACHER_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "ADMINISTRATOR_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "ADMINISTRATOR_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "USER_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "USER_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "COURSE_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "COURSE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "BOOK_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "BOOK_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "ENROLMENT_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "ENROLMENT_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "PROFILE_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "PROFILE_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "AUTH_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "AUTH_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "PASSWORD_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "PASSWORD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "PERMISSION_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "PERMISSION_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "DASHBOARD_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "DASHBOARD_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "REPORT_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "REPORT_WRITE"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "SETTINGS_READ"
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            Permission = "SETTINGS_WRITE"
-                        });
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Users.Administrators.Models.Administrator", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Users.Administrators.Administrator", b =>
                 {
-                    b.HasBaseType("OnlineSchoolApi.Users.Models.User");
+                    b.HasBaseType("OnlineSchoolApi.Users.User");
 
                     b.Property<string>("Department")
                         .HasMaxLength(100)
@@ -1203,28 +204,11 @@ namespace OnlineSchoolApi.Data.Migrations
                         .HasDatabaseName("uk_administrator_employee_code");
 
                     b.ToTable("administrator", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "admin@online-school.ro",
-                            FirstName = "System",
-                            IsActive = true,
-                            LastName = "Administrator",
-                            PasswordHash = "$2a$10$jg3d2Ltol2A8tyaVg9VoNeG47.fj1iIqGv0ndQpmSxc96JfpBMTLi",
-                            PhoneNumber = "+40740000001",
-                            UpdatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Department = "Operations",
-                            EmployeeCode = "ADM-001",
-                            JobTitle = "Platform Administrator"
-                        });
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Users.Students.Models.Student", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Users.Students.Student", b =>
                 {
-                    b.HasBaseType("OnlineSchoolApi.Users.Models.User");
+                    b.HasBaseType("OnlineSchoolApi.Users.User");
 
                     b.Property<DateOnly?>("DateOfBirth")
                         .HasColumnType("date")
@@ -1254,98 +238,11 @@ namespace OnlineSchoolApi.Data.Migrations
                         .HasDatabaseName("uk_student_student_code");
 
                     b.ToTable("student", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 20,
-                            CreatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "ana.marinescu@student.online-school.ro",
-                            FirstName = "Ana",
-                            IsActive = true,
-                            LastName = "Marinescu",
-                            PasswordHash = "$2a$10$jg3d2Ltol2A8tyaVg9VoNeG47.fj1iIqGv0ndQpmSxc96JfpBMTLi",
-                            PhoneNumber = "+40740000020",
-                            UpdatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateOnly(2008, 3, 12),
-                            EnrollmentDate = new DateOnly(2025, 9, 15),
-                            GuardianEmail = "mihai.marinescu@example.com",
-                            GuardianName = "Mihai Marinescu",
-                            StudentCode = "STD-001"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            CreatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "vlad.petrescu@student.online-school.ro",
-                            FirstName = "Vlad",
-                            IsActive = true,
-                            LastName = "Petrescu",
-                            PasswordHash = "$2a$10$jg3d2Ltol2A8tyaVg9VoNeG47.fj1iIqGv0ndQpmSxc96JfpBMTLi",
-                            PhoneNumber = "+40740000021",
-                            UpdatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateOnly(2007, 11, 2),
-                            EnrollmentDate = new DateOnly(2025, 9, 15),
-                            GuardianEmail = "alina.petrescu@example.com",
-                            GuardianName = "Alina Petrescu",
-                            StudentCode = "STD-002"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            CreatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "elena.rusu@student.online-school.ro",
-                            FirstName = "Elena",
-                            IsActive = true,
-                            LastName = "Rusu",
-                            PasswordHash = "$2a$10$jg3d2Ltol2A8tyaVg9VoNeG47.fj1iIqGv0ndQpmSxc96JfpBMTLi",
-                            PhoneNumber = "+40740000022",
-                            UpdatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateOnly(2008, 7, 24),
-                            EnrollmentDate = new DateOnly(2025, 9, 15),
-                            GuardianEmail = "cristian.rusu@example.com",
-                            GuardianName = "Cristian Rusu",
-                            StudentCode = "STD-003"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            CreatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "matei.enache@student.online-school.ro",
-                            FirstName = "Matei",
-                            IsActive = true,
-                            LastName = "Enache",
-                            PasswordHash = "$2a$10$jg3d2Ltol2A8tyaVg9VoNeG47.fj1iIqGv0ndQpmSxc96JfpBMTLi",
-                            PhoneNumber = "+40740000023",
-                            UpdatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateOnly(2007, 5, 19),
-                            EnrollmentDate = new DateOnly(2025, 9, 15),
-                            GuardianEmail = "gabriela.enache@example.com",
-                            GuardianName = "Gabriela Enache",
-                            StudentCode = "STD-004"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            CreatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "sofia.tudor@student.online-school.ro",
-                            FirstName = "Sofia",
-                            IsActive = true,
-                            LastName = "Tudor",
-                            PasswordHash = "$2a$10$jg3d2Ltol2A8tyaVg9VoNeG47.fj1iIqGv0ndQpmSxc96JfpBMTLi",
-                            PhoneNumber = "+40740000024",
-                            UpdatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateOnly(2008, 1, 30),
-                            EnrollmentDate = new DateOnly(2025, 9, 15),
-                            GuardianEmail = "daniel.tudor@example.com",
-                            GuardianName = "Daniel Tudor",
-                            StudentCode = "STD-005"
-                        });
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Users.Teachers.Models.Teacher", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Users.Teachers.Teacher", b =>
                 {
-                    b.HasBaseType("OnlineSchoolApi.Users.Models.User");
+                    b.HasBaseType("OnlineSchoolApi.Users.User");
 
                     b.Property<string>("Bio")
                         .HasMaxLength(1000)
@@ -1372,93 +269,11 @@ namespace OnlineSchoolApi.Data.Migrations
                         .HasDatabaseName("uk_teacher_employee_code");
 
                     b.ToTable("teacher", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 10,
-                            CreatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "andrei.ionescu@online-school.ro",
-                            FirstName = "Andrei",
-                            IsActive = true,
-                            LastName = "Ionescu",
-                            PasswordHash = "$2a$10$jg3d2Ltol2A8tyaVg9VoNeG47.fj1iIqGv0ndQpmSxc96JfpBMTLi",
-                            PhoneNumber = "+40740000010",
-                            UpdatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Bio = "Coordoneaza curricula de matematica pentru gimnaziu si liceu.",
-                            EmployeeCode = "TCH-001",
-                            Specialization = "Mathematics",
-                            Title = "Senior Mathematics Teacher"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CreatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "maria.popescu@online-school.ro",
-                            FirstName = "Maria",
-                            IsActive = true,
-                            LastName = "Popescu",
-                            PasswordHash = "$2a$10$jg3d2Ltol2A8tyaVg9VoNeG47.fj1iIqGv0ndQpmSxc96JfpBMTLi",
-                            PhoneNumber = "+40740000011",
-                            UpdatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Bio = "Preda baze de programare, algoritmi si proiectare software.",
-                            EmployeeCode = "TCH-002",
-                            Specialization = "Computer Science",
-                            Title = "Software Engineering Teacher"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CreatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "alexandru.stan@online-school.ro",
-                            FirstName = "Alexandru",
-                            IsActive = true,
-                            LastName = "Stan",
-                            PasswordHash = "$2a$10$jg3d2Ltol2A8tyaVg9VoNeG47.fj1iIqGv0ndQpmSxc96JfpBMTLi",
-                            PhoneNumber = "+40740000012",
-                            UpdatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Bio = "Acopera fizica experimentala si aplicatii practice in laborator.",
-                            EmployeeCode = "TCH-003",
-                            Specialization = "Physics",
-                            Title = "Applied Physics Teacher"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CreatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "ioana.dumitrescu@online-school.ro",
-                            FirstName = "Ioana",
-                            IsActive = true,
-                            LastName = "Dumitrescu",
-                            PasswordHash = "$2a$10$jg3d2Ltol2A8tyaVg9VoNeG47.fj1iIqGv0ndQpmSxc96JfpBMTLi",
-                            PhoneNumber = "+40740000013",
-                            UpdatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Bio = "Lucreaza pe comunicare academica si pregatire pentru examene internationale.",
-                            EmployeeCode = "TCH-004",
-                            Specialization = "English",
-                            Title = "Academic English Teacher"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CreatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "radu.georgescu@online-school.ro",
-                            FirstName = "Radu",
-                            IsActive = true,
-                            LastName = "Georgescu",
-                            PasswordHash = "$2a$10$jg3d2Ltol2A8tyaVg9VoNeG47.fj1iIqGv0ndQpmSxc96JfpBMTLi",
-                            PhoneNumber = "+40740000014",
-                            UpdatedAt = new DateTime(2026, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Bio = "Preda istorie moderna si gandire critica bazata pe surse.",
-                            EmployeeCode = "TCH-005",
-                            Specialization = "History",
-                            Title = "Modern History Teacher"
-                        });
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Books.Models.Book", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Books.Book", b =>
                 {
-                    b.HasOne("OnlineSchoolApi.Users.Students.Models.Student", "Student")
+                    b.HasOne("OnlineSchoolApi.Users.Students.Student", "Student")
                         .WithMany("Books")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1467,15 +282,15 @@ namespace OnlineSchoolApi.Data.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Enrolments.Models.Enrolment", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Enrolments.Enrolment", b =>
                 {
-                    b.HasOne("OnlineSchoolApi.Courses.Models.Course", "Course")
+                    b.HasOne("OnlineSchoolApi.Courses.Course", "Course")
                         .WithMany("Enrolments")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_enrolment_course");
 
-                    b.HasOne("OnlineSchoolApi.Users.Students.Models.Student", "Student")
+                    b.HasOne("OnlineSchoolApi.Users.Students.Student", "Student")
                         .WithMany("Enrolments")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1486,9 +301,9 @@ namespace OnlineSchoolApi.Data.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Users.Models.UserPermission", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Users.UserPermission", b =>
                 {
-                    b.HasOne("OnlineSchoolApi.Users.Models.User", "User")
+                    b.HasOne("OnlineSchoolApi.Users.User", "User")
                         .WithMany("Permissions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1498,44 +313,44 @@ namespace OnlineSchoolApi.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Users.Administrators.Models.Administrator", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Users.Administrators.Administrator", b =>
                 {
-                    b.HasOne("OnlineSchoolApi.Users.Models.User", null)
+                    b.HasOne("OnlineSchoolApi.Users.User", null)
                         .WithOne()
-                        .HasForeignKey("OnlineSchoolApi.Users.Administrators.Models.Administrator", "Id")
+                        .HasForeignKey("OnlineSchoolApi.Users.Administrators.Administrator", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Users.Students.Models.Student", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Users.Students.Student", b =>
                 {
-                    b.HasOne("OnlineSchoolApi.Users.Models.User", null)
+                    b.HasOne("OnlineSchoolApi.Users.User", null)
                         .WithOne()
-                        .HasForeignKey("OnlineSchoolApi.Users.Students.Models.Student", "Id")
+                        .HasForeignKey("OnlineSchoolApi.Users.Students.Student", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Users.Teachers.Models.Teacher", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Users.Teachers.Teacher", b =>
                 {
-                    b.HasOne("OnlineSchoolApi.Users.Models.User", null)
+                    b.HasOne("OnlineSchoolApi.Users.User", null)
                         .WithOne()
-                        .HasForeignKey("OnlineSchoolApi.Users.Teachers.Models.Teacher", "Id")
+                        .HasForeignKey("OnlineSchoolApi.Users.Teachers.Teacher", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Courses.Models.Course", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Courses.Course", b =>
                 {
                     b.Navigation("Enrolments");
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Users.Models.User", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Users.User", b =>
                 {
                     b.Navigation("Permissions");
                 });
 
-            modelBuilder.Entity("OnlineSchoolApi.Users.Students.Models.Student", b =>
+            modelBuilder.Entity("OnlineSchoolApi.Users.Students.Student", b =>
                 {
                     b.Navigation("Books");
 

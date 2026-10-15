@@ -2,6 +2,8 @@ namespace OnlineShopApi.Security;
 
 public static class Permissions
 {
+    public const string ClaimType = "authorities";
+
     public const string UserRead = "USER_READ";
     public const string UserWrite = "USER_WRITE";
     public const string ProductRead = "PRODUCT_READ";

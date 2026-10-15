@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OnlineSchoolApi.Users.Models;
+using OnlineSchoolApi.Users;
 
 namespace OnlineSchoolApi.Data.Configurations;
 

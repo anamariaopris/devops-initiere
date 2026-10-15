@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OnlineSchoolApi.Books.Models;
-using OnlineSchoolApi.Data.Seed;
+using OnlineSchoolApi.Books;
 
 namespace OnlineSchoolApi.Data.Configurations;
 
@@ -21,7 +20,5 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
             .HasForeignKey(x => x.StudentId)
             .HasConstraintName("fk_book_student")
             .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasData(InitialData.Books);
     }
 }

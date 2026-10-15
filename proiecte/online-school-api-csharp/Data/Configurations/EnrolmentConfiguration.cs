@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OnlineSchoolApi.Data.Seed;
-using OnlineSchoolApi.Enrolments.Models;
+using OnlineSchoolApi.Enrolments;
 
 namespace OnlineSchoolApi.Data.Configurations;
 
@@ -27,7 +26,5 @@ public class EnrolmentConfiguration : IEntityTypeConfiguration<Enrolment>
             .HasForeignKey(x => x.CourseId)
             .HasConstraintName("fk_enrolment_course")
             .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasData(InitialData.Enrolments);
     }
 }
