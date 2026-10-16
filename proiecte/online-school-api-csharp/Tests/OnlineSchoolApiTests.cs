@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using OnlineSchoolApi.Auth;
 using OnlineSchoolApi.Courses;
+using OnlineSchoolApi.Enrolments;
 
 namespace OnlineSchoolApi.Tests;
 
@@ -187,6 +188,27 @@ public class OnlineSchoolApiTests(ApiFactory factory) : IClassFixture<ApiFactory
         var problem = await response.Content.ReadFromJsonAsync<ProblemDetails>();
         Assert.NotNull(problem);
         Assert.Equal("Enrolment already exists for studentId=20 and courseId=100", problem.Detail);
+    }
+
+    [Fact]
+    public async Task GetEnrolments_ReturnsId_AndDeleteByIdRemovesEnrolment()
+    {
+        // Arrange
+        var admin = await LoginAsync(AdminEmail);
+        var createdCourse = await admin.PostAsJsonAsync("/courses", new CourseCreateRequest($"Delete {Guid.NewGuid():N}", "Test"));
+        var course = await createdCourse.Content.ReadFromJsonAsync<CourseResponse>();
+        await admin.PostAsJsonAsync("/enrolments", new EnrolmentCreateRequest(20, course!.Id));
+
+        // Act
+        var all = await admin.GetFromJsonAsync<List<EnrolmentResponse>>("/enrolments");
+        var created = all!.Single(e => e.CourseId == course.Id);
+        var deleted = await admin.DeleteAsync($"/enrolments/{created.Id}");
+        var remaining = await admin.GetFromJsonAsync<List<EnrolmentResponse>>($"/enrolments/find-by-course?courseId={course.Id}");
+
+        // Assert
+        Assert.True(created.Id > 0);
+        Assert.Equal(HttpStatusCode.OK, deleted.StatusCode);
+        Assert.Empty(remaining!);
     }
 
     [Fact]

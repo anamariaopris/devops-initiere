@@ -99,14 +99,17 @@ public class OnlineSchoolE2ETests
         var enrolment = new EnrolmentCreateRequest(student!.Id, course!.Id);
         var first = await admin.PostAsJsonAsync("/enrolments", enrolment);
         var second = await admin.PostAsJsonAsync("/enrolments", enrolment);
-        var deletedCourse = await admin.DeleteAsync($"/courses/{course.Id}");
+        var created = await first.Content.ReadFromJsonAsync<EnrolmentResponse>();
+        var deletedEnrolment = await admin.DeleteAsync($"/enrolments/{created!.Id}");
         var remaining = await admin.GetFromJsonAsync<List<EnrolmentResponse>>($"/enrolments/find-by-course?courseId={course.Id}");
+        var deletedCourse = await admin.DeleteAsync($"/courses/{course.Id}");
 
         // Assert
         Assert.Equal(HttpStatusCode.Created, createdCourse.StatusCode);
         Assert.Equal(HttpStatusCode.Created, first.StatusCode);
         Assert.Equal(HttpStatusCode.Conflict, second.StatusCode);
-        Assert.Equal(HttpStatusCode.OK, deletedCourse.StatusCode);
+        Assert.Equal(HttpStatusCode.OK, deletedEnrolment.StatusCode);
         Assert.Empty(remaining!);
+        Assert.Equal(HttpStatusCode.OK, deletedCourse.StatusCode);
     }
 }
