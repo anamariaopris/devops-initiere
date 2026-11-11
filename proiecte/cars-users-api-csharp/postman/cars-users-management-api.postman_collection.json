@@ -1,0 +1,276 @@
+{
+  "info": {
+    "_postman_id": "f62ec484-b884-4829-84ce-9450216eba0f",
+    "name": "cars-users-management-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "59146810",
+    "_collection_link": "https://go.postman.co/collection/59146810-f62ec484-b884-4829-84ce-9450216eba0f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "getAllCars",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5648/api/cars",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5648",
+          "path": [
+            "api",
+            "cars"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getCarById",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5648/api/cars/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5648",
+          "path": [
+            "api",
+            "cars",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getCarByBrand",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5648/api/cars/by-brand/Toyota",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5648",
+          "path": [
+            "api",
+            "cars",
+            "by-brand",
+            "Toyota"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getCarByYear",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5648/api/cars/by-year-range?minYear=2019&maxYear=2021",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5648",
+          "path": [
+            "api",
+            "cars",
+            "by-year-range"
+          ],
+          "query": [
+            {
+              "key": "minYear",
+              "value": "2019"
+            },
+            {
+              "key": "maxYear",
+              "value": "2021"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getCarBySearch",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5648/api/cars/search?Brand=Honda&Model=Civic&UserId=1&MinYear=2021&MaxYear=2021",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5648",
+          "path": [
+            "api",
+            "cars",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "Brand",
+              "value": "Honda"
+            },
+            {
+              "key": "Model",
+              "value": "Civic"
+            },
+            {
+              "key": "UserId",
+              "value": "1"
+            },
+            {
+              "key": "MinYear",
+              "value": "2021"
+            },
+            {
+              "key": "MaxYear",
+              "value": "2021"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "addUser",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"ana\",\r\n  \"email\": \"ana@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5648/api/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5648",
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "addCars",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"brand\": \"string\",\r\n  \"model\": \"string\",\r\n  \"year\": 2021,\r\n  \"userId\": 2\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5648/api/cars",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5648",
+          "path": [
+            "api",
+            "cars"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getAllUsers",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "patchCarId",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"brand\": \"test\"\r\n \r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5648/api/cars/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5648",
+          "path": [
+            "api",
+            "cars",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "patchUsers",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"maria@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5648/api/users/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5648",
+          "path": [
+            "api",
+            "users",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]

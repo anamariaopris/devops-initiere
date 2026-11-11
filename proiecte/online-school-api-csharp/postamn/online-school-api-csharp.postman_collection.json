@@ -1,0 +1,305 @@
+{
+  "info": {
+    "_postman_id": "c529fd3a-5113-45c1-8a43-28a2f8d16577",
+    "name": "online-school-api-csharp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "59146810",
+    "_collection_link": "https://go.postman.co/collection/59146810-c529fd3a-5113-45c1-8a43-28a2f8d16577?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "studentLogin",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0e9y}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"ana.marinescu@student.online-school.ro\",\r\n  \"password\": \"password\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5612/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5612",
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "readBooks",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_186r}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5612/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5612",
+          "path": [
+            "books"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "addBook",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0f54}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"bookName\": \"Informatica\",\r\n  \"studentId\": 24\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5612/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5612",
+          "path": [
+            "books"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "studentRegister",
+      "request": {
+        "auth": {
+          "type": "bearer"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"firstName\": \"Maria\",\r\n  \"lastName\": \"Dumitrescu\",\r\n  \"email\": \"mariad@gmail.com\",\r\n  \"password\": \"aaabbbcccddd\",\r\n  \"phoneNumber\": \"0202020202\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5612/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5612",
+          "path": [
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "authMe",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0pnh}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5612/auth/me",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5612",
+          "path": [
+            "auth",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "students",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0x99}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5612/students",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5612",
+          "path": [
+            "students"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "teachers",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0srx}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5612/teachers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5612",
+          "path": [
+            "teachers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "students Copy",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0x99}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5612/students",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5612",
+          "path": [
+            "students"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "json_web_token_017z",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_186r",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0f54",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0x99",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0pnh",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0e9y",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0srx",
+      "secret": true
+    }
+  ]
+}

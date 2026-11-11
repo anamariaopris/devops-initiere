@@ -1,0 +1,28 @@
+School
+
+GET authMe :
+- > am primit eroarea 409 Conflict, api a respins cererea, deoarece studentul exista in baza de date.
+{
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.10",
+    "title": "Conflict",
+    "status": 409,
+    "detail": "Student already exists with email=mariad@gmail.com"
+}
+Observatie  :
+- pot face login - > 200 ok, apoi autentificare reusita
+
+GET students fara token : 
+- > 401 unauthorized, deoarece nu am facut loginul innainte ca sa pot lua tokenul
+- > dupa login, pot citi toti studentii
+
+GET students cu token inventat : 
+-> 401 unauthorized
+
+POST /auth/login cu parola gresita : 
+-> 401 unauthorized
+
+POST /auth/login  fara campul password :
+- > 400 One or more validation errors occurred.
+
+[student] GET /teachers - > 403 Forbidden , cu tokenul studentului cererea api e ok, dar studentul nu are permisiunea de a vedeea lista 
+[student] GET /students - >200 ok 
