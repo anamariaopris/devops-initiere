@@ -1,0 +1,8 @@
+bin/
+obj/
+.vs/
+.idea/
+*.http
+Dockerfile
+.dockerignore
+Tests/

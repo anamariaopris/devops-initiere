@@ -13,5 +13,5 @@ public class Car
     public string FuelType { get; set; } = string.Empty;
     public string Transmission { get; set; } = string.Empty;
     public bool Available { get; set; }
-}`
+}
 
