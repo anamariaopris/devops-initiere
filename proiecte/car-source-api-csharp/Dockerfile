@@ -1,7 +1,7 @@
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG TARGETARCH
 WORKDIR /src
-COPY OnlineShopApi.csproj .
+COPY mock-car-source-api.csproj .
 RUN dotnet restore -a $TARGETARCH
 COPY . .
 RUN dotnet publish -c Release -a $TARGETARCH --no-restore -o /app

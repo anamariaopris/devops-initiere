@@ -14,22 +14,17 @@ services:
       retries: 12
       start_period: 30s
     restart: unless-stopped
-car-source:
+  car-source:
     image: anamariaopris12/devops-car-source-api:7.0
     ports:
       - 8400:8080
     environment:
-       ConnectionStrings__DefaultConnection: "server=mysql-service;port=3306;database=online_school_db;user=root;password=root"
+       ConnectionStrings__DefaultConnection: "server=mysql-service;port=3306;database=mock-car-source-api_db;user=root;password=root"
        Jwt__Secret: "b25saW5lLXNjaG9vbC1jbG91ZC1hcGktc3VwZXItc2VjdXJlLWp3dC1zZWNyZXQtbXVzdC1iZS1sb25nLWVub3VnaA=="
        Seed__Enabled: true
     depends_on:
       mysql-service:
         condition: service_healthy
-
-
-volumes:
-  mysql_data:
-
 
 volumes:
   mysql_data:
